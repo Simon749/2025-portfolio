@@ -83,7 +83,7 @@ export const projects = [
     name: "Mobile Accessories E-commerce",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "",
+    href: "https://konyags-git-main-simon-mwangis-projects-4013e9ef.vercel.app",
     image: "/assets/projects/mobile-accessories-store.jpg",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
