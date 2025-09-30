@@ -136,14 +136,12 @@ const Works = () => {
             />
 
             <div className="relative px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
-              <h3 className="text-lg font-semibold">
-                {project.frameworks[0]?.name}
-              </h3>
+              <h3 className="text-lg font-semibold">{project.framework}</h3>
             </div>
           </a>
         ))}
 
-        {/* desktop Floating preview image */}
+        {/* desktop Flaoting preview image */}
         <div
           ref={previewRef}
           className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0"
