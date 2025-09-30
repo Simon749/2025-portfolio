@@ -83,7 +83,7 @@ export const projects = [
     name: "Mobile Accessories E-commerce",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "https://luvert-e-com-web.vercel.app/",
+    href: "https://luvert-e-com-web.vercel.app",
     image: "/assets/projects/mobile-accessories-store.jpg",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
@@ -99,7 +99,7 @@ export const projects = [
     name: "My 3d Portfolio",
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
-    href: "https://3d-portfolio-sand-psi.vercel.app/",
+    href: "https://3d-portfolio-sand-psi.vercel.app",
     image: "/assets/projects/plant-shop.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
@@ -114,7 +114,7 @@ export const projects = [
     name: "Game Web App",
     description:
       "An e-commerce platform for Apple products and accessories with deals and category filtering.",
-    href: "https://game-app-web-six.vercel.app/",
+    href: "https://game-app-web-six.vercel.app",
     image: "/assets/projects/apple-tech-store.jpg",
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
