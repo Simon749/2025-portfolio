@@ -129,6 +129,12 @@ const Works = () => {
               <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
             </div>
 
+            <img
+              src={project.image}
+              alt={project.name}
+              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100"
+            />
+
             <div className="relative px-10 text-black">
               <h3 className="text-lg font-semibold">{project.framework}</h3>
             </div>
