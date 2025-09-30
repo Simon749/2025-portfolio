@@ -128,7 +128,7 @@ const Works = () => {
             </div>
 
             <img
-              src={project.img}
+              src={project.image}
               alt={project.name}
               className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100"
             />
@@ -146,7 +146,7 @@ const Works = () => {
         >
           {currentIndex !== null && (
             <img
-              src={projects[currentIndex].img}
+              src={projects[currentIndex].image}
               alt="preview"
               className="object-cover w-full h-full"
             />
