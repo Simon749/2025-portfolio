@@ -118,28 +118,23 @@ const Works = () => {
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative h-[550px] bg-neutral-100 border rounded-3xl p-4 flex flex-col justify-between shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+            className="relative h-[300px] bg-neutral-100 border rounded-3xl p-4 flex flex-col justify-between shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
-            <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+            <div className="flex justify-between px-10 text-black">
               <h2 className="lg:text-[32px] text-[26px] leading-none">
                 {project.name}
               </h2>
               <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
             </div>
 
-            <img
-              src={project.image}
-              alt={project.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100"
-            />
-
-            <div className="relative px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+            <div className="relative px-10 text-black">
               <h3 className="text-lg font-semibold">{project.framework}</h3>
             </div>
           </a>
         ))}
+
 
         {/* desktop Flaoting preview image */}
         <div
