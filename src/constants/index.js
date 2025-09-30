@@ -80,10 +80,10 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "Mobile Accessories E-commerce",
+    name: "Ecommerce Web App",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "https://luvert-e-com-web.vercel.app",
+    href: "https://e-com-web-4ua8.vercel.app",
     image: "/assets/projects/ecom.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
@@ -96,7 +96,7 @@ export const projects = [
   },
   {
     id: 2,
-    name: "My 3d Portfolio",
+    name: "3D Web App",
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
     href: "https://3d-portfolio-sand-psi.vercel.app",
