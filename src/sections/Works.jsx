@@ -130,9 +130,8 @@ const Works = () => {
             <img
               src={project.img}
               alt={project.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100 pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100"
             />
-
 
             <div className="relative px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
               <h3 className="text-lg font-semibold">{project.framework}</h3>
