@@ -146,7 +146,7 @@ const Works = () => {
         >
           {currentIndex !== null && (
             <img
-              src={projects[currentIndex].image}
+              src={projects[currentIndex].img}
               alt="preview"
               className="object-cover w-full h-full"
             />
