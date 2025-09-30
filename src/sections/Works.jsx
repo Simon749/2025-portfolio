@@ -119,6 +119,8 @@ const Works = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="relative h-[550px] bg-neutral-100 border rounded-3xl p-4 flex flex-col justify-between shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={() => handleMouseLeave(index)}
           >
             <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
               <h2 className="lg:text-[32px] text-[26px] leading-none">
@@ -134,12 +136,14 @@ const Works = () => {
             />
 
             <div className="relative px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
-              <h3 className="text-lg font-semibold">{project.framework}</h3>
+              <h3 className="text-lg font-semibold">
+                {project.frameworks[0]?.name}
+              </h3>
             </div>
           </a>
         ))}
 
-        {/* desktop Flaoting preview image */}
+        {/* desktop Floating preview image */}
         <div
           ref={previewRef}
           className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0"
