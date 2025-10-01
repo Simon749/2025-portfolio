@@ -141,10 +141,10 @@ export const projects = [
   },
   {
     id: 5,
-    name: "Home Decor Marketplace",
+    name: "Fashion E-com App",
     description:
       "A curated collection of designer home decor items, including furniture and artisan vases.",
-    href: "",
+    href: "https://fashion-e-com-temp.vercel.app",
     image: "/assets/projects/home-decor-store.jpg",
     bgImage: "/assets/backgrounds/table.jpg",
     frameworks: [
