@@ -159,7 +159,7 @@ export const projects = [
     name: "Digital Game Store",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
-    href: "",
+    href: "https://konyags.vercel.app",
     image: "/assets/projects/game-store.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [

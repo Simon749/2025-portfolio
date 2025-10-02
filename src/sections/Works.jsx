@@ -114,11 +114,12 @@ const Works = () => {
       >
         {projects.map((project, index) => (
           <a
-            key={index}
+            key={project.id}
+            id="projec"
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative h-[300px] bg-neutral-100 border rounded-3xl p-4 flex flex-col justify-between shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+            className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
