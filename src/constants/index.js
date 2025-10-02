@@ -84,7 +84,7 @@ export const projects = [
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
     href: "https://e-com-web-4ua8.vercel.app",
-    image: "/assets/projects/ecom.png",
+    image: "/assets/projects/ecom copy.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "Html" },
@@ -100,7 +100,7 @@ export const projects = [
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
     href: "https://3d-portfolio-sand-psi.vercel.app",
-    image: "/assets/projects/3d.png",
+    image: "/assets/projects/3d copy.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "React" },
@@ -130,7 +130,7 @@ export const projects = [
     description:
       "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
     href: "https://react-tailwind-and-gsap-site-temp.vercel.app",
-    image: "/assets/projects/electronics-store.jpg",
+    image: "/assets/projects/skylit.png",
     bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
       { id: 1, name: "Vue.js" },
@@ -145,7 +145,7 @@ export const projects = [
     description:
       "A curated collection of designer home decor items, including furniture and artisan vases.",
     href: "https://fashion-e-com-temp.vercel.app",
-    image: "/assets/projects/home-decor-store.jpg",
+    image: "/assets/projects/2025-10-02 (4).png",
     bgImage: "/assets/backgrounds/table.jpg",
     frameworks: [
       { id: 1, name: "Angular" },
@@ -156,11 +156,11 @@ export const projects = [
   },
   {
     id: 6,
-    name: "Digital Game Store",
+    name: "Cocktail Web App",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
     href: "https://konyags.vercel.app",
-    image: "/assets/projects/game-store.jpg",
+    image: "/assets/projects/mojito.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "Svelte" },
