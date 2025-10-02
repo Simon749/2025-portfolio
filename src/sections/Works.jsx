@@ -153,16 +153,19 @@ const Works = () => {
               ))}
             </div>
 
-            
+            {/* mobile preview image */}
 
-            <img
-              src={project.image}
-              alt={project.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-all duration-500 opacity-0 md:group-hover:opacity-100"
-            />
-
-            <div className="relative px-10 text-black">
-              <h3 className="text-lg font-semibold">{project.framework}</h3>
+            <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
+              <img
+                src={project.bgImage}
+                alt={`${project.name}-bg-image`}
+                className="object-cover w-full h-full rounded-md brightness-50"
+              />
+              <img
+                src={project.image}
+                alt={`${project.name}-image`}
+                className="absolute bg-center px-14 rounded-xl"
+              />
             </div>
           </a>
         ))}
