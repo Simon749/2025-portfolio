@@ -123,12 +123,37 @@ const Works = () => {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
-            <div className="flex justify-between px-10 text-black">
+
+            {/* overlay */}
+            <div
+              ref={(el) => {
+                overlayRefs.current[index] = el;
+              }}
+              className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
+            />
+
+
+            {/* title */}
+            <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
               <h2 className="lg:text-[32px] text-[26px] leading-none">
                 {project.name}
               </h2>
               <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
             </div>
+
+            {/* framework */}
+            <div className="flex px-10 text-xs leading-loose uppercase transtion-all duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
+              {project.frameworks.map((framework) => (
+                <p
+                  key={framework.id}
+                  className="text-black transition-colors duration-500 md:group-hover:text-white"
+                >
+                  {framework.name}
+                </p>
+              ))}
+            </div>
+
+            
 
             <img
               src={project.image}
