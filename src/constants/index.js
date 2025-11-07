@@ -80,11 +80,11 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "Ecommerce Web App",
+    name: "VibeLink Dating App",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "https://e-com-web-4ua8.vercel.app",
-    image: "/assets/projects/ecom copy.png",
+    href: "https://dating-app-pi-three.vercel.app/",
+    image: "/assets/projects/dating.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "Html" },
@@ -96,11 +96,11 @@ export const projects = [
   },
   {
     id: 2,
-    name: "3D Web App",
+    name: "Cote-Royale",
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
-    href: "https://3d-portfolio-sand-psi.vercel.app",
-    image: "/assets/projects/3d copy.png",
+    href: "https://luxury-website-course-c-te-royale.vercel.app/",
+    image: "/assets/projects/cote-royale-course-main.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "React" },
