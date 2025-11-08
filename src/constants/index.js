@@ -126,17 +126,17 @@ export const projects = [
   },
   {
     id: 4,
-    name: "React Web App",
+    name: "Spylit",
     description:
       "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
     href: "https://react-tailwind-and-gsap-site-temp.vercel.app",
     image: "/assets/projects/skylit.png",
     bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
-      { id: 1, name: "Vue.js" },
-      { id: 2, name: "Laravel" },
-      { id: 3, name: "MySQL" },
-      { id: 4, name: "SCSS" },
+      { id: 1, name: "React" },
+      { id: 2, name: "Tailwindcss" },
+      { id: 3, name: "Gsap" },
+      { id: 4, name: "" },
     ],
   },
   {
@@ -148,24 +148,24 @@ export const projects = [
     image: "/assets/projects/2025-10-02 (4).png",
     bgImage: "/assets/backgrounds/table.jpg",
     frameworks: [
-      { id: 1, name: "Angular" },
-      { id: 2, name: "Firebase" },
+      { id: 1, name: "React" },
+      { id: 2, name: "Tailwindcss" },
       { id: 3, name: "GraphQL" },
       { id: 4, name: "Material UI" },
     ],
   },
   {
     id: 6,
-    name: "Cocktail Web App",
+    name: "Mojito",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
     href: "https://konyags.vercel.app",
     image: "/assets/projects/mojito.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
-      { id: 1, name: "Svelte" },
-      { id: 2, name: "Node.js" },
-      { id: 3, name: "MongoDB" },
+      { id: 1, name: "React" },
+      { id: 2, name: "GSAP" },
+      { id: 3, name: "Tailwindcss" },
       { id: 4, name: "Chakra UI" },
     ],
   },
@@ -177,5 +177,5 @@ export const socials = [
     href: "https://www.youtube.com/@simonmwangi6228/",
   },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/simon-mwangi-6a3aa716b/" },
-  { name: "GitHub", href: "https://github.com/Simon749" },
+  { name: "GitHub", href: "https://github.com/Simon74" },
 ];
