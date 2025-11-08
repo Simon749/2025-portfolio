@@ -177,5 +177,5 @@ export const socials = [
     href: "https://www.youtube.com/@simonmwangi6228/",
   },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/simon-mwangi-6a3aa716b/" },
-  { name: "GitHub", href: "https://github.com/Simon74" },
+  { name: "X", href: "https://x.com/SimonMw749" },
 ];
