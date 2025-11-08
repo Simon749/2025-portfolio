@@ -156,7 +156,7 @@ export const projects = [
   },
   {
     id: 6,
-    name: "Mojito",
+    name: "Cocktail Haven",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
     href: "https://konyags.vercel.app",
