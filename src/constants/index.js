@@ -80,18 +80,18 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "VibeLink Dating App",
+    name: "AI Medical Assisatant",
     description:
-      "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "https://dating-app-pi-three.vercel.app/",
-    image: "/assets/projects/dating.png",
+      "AI medical assistant a Saas  that mainly takes medical reports",
+    href: "https://ai-med-agent-qj7a.vercel.app/",
+    image: "/assets/projects/ai med.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "Nextjs" },
       { id: 2, name: "React" },
-      { id: 3, name: "Supabase" },
-      { id: 4, name: "Stream" },
-      { id: 5, name: "" },
+      { id: 3, name: "Firebase" },
+      { id: 4, name: "Cleark" },
+      { id: 5, name: "Shadcn" },
     ],
   },
   {
