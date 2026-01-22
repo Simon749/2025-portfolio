@@ -9,7 +9,8 @@ import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { useProgress } from "@react-three/drei";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react'
+
 
 const App = () => {
   const { progress } = useProgress();
