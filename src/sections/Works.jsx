@@ -92,11 +92,19 @@ const Works = () => {
 
   const handleMouseMove = (e) => {
     if (window.innerWidth < 768) return;
-    // FIXED: Position preview to the right of cursor, not overlapping text
-    const offsetX = 20;
-    const offsetY = -150;
+    // Position preview on the right side of screen, away from project list
+    const viewportWidth = window.innerWidth;
+    const previewWidth = Math.min(480, viewportWidth * 0.35);
+
+    // If mouse is on left half, show preview on right; if on right, show on left
+    const shouldShowOnRight = e.clientX < viewportWidth / 2;
+
+    const offsetX = shouldShowOnRight ? 40 : -(previewWidth + 40);
+    const offsetY = -100;
+
     mouse.current.x = e.clientX + offsetX;
     mouse.current.y = e.clientY + offsetY;
+
     moveX.current(mouse.current.x);
     moveY.current(mouse.current.y);
   };

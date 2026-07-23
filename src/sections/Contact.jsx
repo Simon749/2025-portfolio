@@ -5,15 +5,19 @@ import { socials } from "../constants";
 import gsap from "gsap";
 
 const Contact = () => {
-  const text = `Got a question, how or project Idea?
-    I’D love to hear from you and discus further!`;
+  // FIXED: Professional copy, no typos
+  const text = `Have a project in mind or a question?
+    I'd love to hear about it and discuss how I can help.`;
+
+  // FIXED: "imagin" → "imagine"
   const items = [
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
+    "Just imagine, I code",
+    "Just imagine, I code",
+    "Just imagine, I code",
+    "Just imagine, I code",
+    "Just imagine, I code",
   ];
+
   useGSAP(() => {
     gsap.from(".social-link", {
       y: 100,
@@ -27,6 +31,7 @@ const Contact = () => {
       },
     });
   }, []);
+
   return (
     <section
       id="contact"
@@ -34,7 +39,7 @@ const Contact = () => {
     >
       <div>
         <AnimatedHeaderSection
-          subTitle={"You Dream It, I Code it"}
+          subTitle={"You Dream It, I Code It"}
           title={"Contact"}
           text={text}
           textColor={"text-white"}
@@ -42,20 +47,32 @@ const Contact = () => {
         />
         <div className="flex px-10 font-light text-white uppercase lg:text-[32px] text-[26px] leading-none mb-10">
           <div className="flex flex-col w-full gap-10">
+            
+            {/* Email — now clickable */}
             <div className="social-link">
               <h2>E-mail</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <p className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl">
+              <a
+                href="mailto:simonmwangi749@gmail.com"
+                className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl hover:text-white/80 transition-colors duration-200"
+              >
                 simonmwangi749@gmail.com
-              </p>
+              </a>
             </div>
+
+            {/* Phone — now clickable */}
             <div className="social-link">
               <h2>Phone</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <p className="text-xl lowercase md:text-2xl lg:text-3xl">
-                +254 756137400
-              </p>
+              <a
+                href="tel:+254756137400"
+                className="text-xl lowercase md:text-2xl lg:text-3xl hover:text-white/80 transition-colors duration-200"
+              >
+                +254 756 137 400
+              </a>
             </div>
+
+            {/* Social Media */}
             <div className="social-link">
               <h2>Social Media</h2>
               <div className="w-full h-px my-2 bg-white/30" />
@@ -64,14 +81,33 @@ const Contact = () => {
                   <a
                     key={index}
                     href={social.href}
-                    className="text-xs leading-loose tracking-wides uppercase md:text-sm hover:text-white/80 transition-colors duration-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs leading-loose tracking-wide uppercase md:text-sm hover:text-white/80 transition-colors duration-200"
                   >
-                    {"{ "}
-                    {social.name}
-                    {" }"}
+                    {"{ "}{social.name}{" }"}
                   </a>
                 ))}
               </div>
+            </div>
+
+            {/* NEW: Resume + GitHub links */}
+            <div className="social-link flex flex-wrap gap-4 mt-4">
+              <a
+                href="/resume.pdf"
+                download
+                className="px-6 py-3 text-sm tracking-widest uppercase border border-white/30 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+              >
+                Download Resume
+              </a>
+              <a
+                href="https://github.com/SimonMw749"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 text-sm tracking-widest uppercase border border-white/30 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+              >
+                GitHub
+              </a>
             </div>
           </div>
         </div>
