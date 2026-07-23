@@ -17,12 +17,12 @@ const Marquee = ({
     items = gsap.utils.toArray(items);
     config = config || {};
     let tl = gsap.timeline({
-        repeat: config.repeat,
-        paused: config.paused,
-        defaults: { ease: "none" },
-        onReverseComplete: () =>
-          tl.totalTime(tl.rawTime() + tl.duration() * 100),
-      }),
+      repeat: config.repeat,
+      paused: config.paused,
+      defaults: { ease: "none" },
+      onReverseComplete: () =>
+        tl.totalTime(tl.rawTime() + tl.duration() * 100),
+    }),
       length = items.length,
       startX = items[0].offsetLeft,
       times = [],
@@ -44,7 +44,7 @@ const Marquee = ({
         let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
         xPercents[i] = snap(
           (parseFloat(gsap.getProperty(el, "x", "px")) / w) * 100 +
-            gsap.getProperty(el, "xPercent")
+          gsap.getProperty(el, "xPercent")
         );
         return xPercents[i];
       },
@@ -55,7 +55,7 @@ const Marquee = ({
       (xPercents[length - 1] / 100) * widths[length - 1] -
       startX +
       items[length - 1].offsetWidth *
-        gsap.getProperty(items[length - 1], "scaleX") +
+      gsap.getProperty(items[length - 1], "scaleX") +
       (parseFloat(config.paddingRight) || 0);
     for (i = 0; i < length; i++) {
       item = items[i];
@@ -124,7 +124,7 @@ const Marquee = ({
       reversed: reverse,
     });
 
-    Observer.create({
+    const observer = Observer.create({
       onChangeY(self) {
         let factor = 2.5;
         if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
@@ -140,7 +140,11 @@ const Marquee = ({
           .to(tl, { timeScale: factor / 2.5, duration: 1 }, "+=0.3");
       },
     });
-    return () => tl.kill();
+
+    return () => {
+      tl.kill();
+      observer.kill(); // <-- THIS WAS MISSING
+    };
   }, [items, reverse]);
   return (
     <div

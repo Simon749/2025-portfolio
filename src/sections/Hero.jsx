@@ -19,6 +19,7 @@ results driven webs/apps`;
         title={"Simon Mwangi"}
         text={text}
         textColor={"text-black"}
+        headingLevel="h1"
       />
       <figure
         className="absolute inset-0 -z-50"
