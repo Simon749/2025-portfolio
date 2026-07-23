@@ -8,11 +8,9 @@ import { useGSAP } from "@gsap/react";
 const Works = () => {
   const overlayRefs = useRef([]);
   const previewRef = useRef(null);
-
   const [currentIndex, setCurrentIndex] = useState(null);
-  const text = `Featured projects that have been meticulously
-    crafted with passion to drive
-    results and impact.`;
+
+  const text = `Featured projects that have been meticulously crafted with passion to drive results and impact.`;
 
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
@@ -28,7 +26,8 @@ const Works = () => {
       ease: "power3.out",
     });
 
-    gsap.from("#project", {
+    // FIXED: Use class selector instead of broken ID
+    gsap.from(".project-card", {
       y: 100,
       opacity: 0,
       delay: 0.5,
@@ -36,7 +35,7 @@ const Works = () => {
       stagger: 0.3,
       ease: "back.out",
       scrollTrigger: {
-        trigger: "#project",
+        trigger: ".project-card",
       },
     });
   }, []);
@@ -93,8 +92,11 @@ const Works = () => {
 
   const handleMouseMove = (e) => {
     if (window.innerWidth < 768) return;
-    mouse.current.x = e.clientX + 24;
-    mouse.current.y = e.clientY + 24;
+    // FIXED: Position preview to the right of cursor, not overlapping text
+    const offsetX = 20;
+    const offsetY = -150;
+    mouse.current.x = e.clientX + offsetX;
+    mouse.current.y = e.clientY + offsetY;
     moveX.current(mouse.current.x);
     moveY.current(mouse.current.y);
   };
@@ -115,15 +117,13 @@ const Works = () => {
         {projects.map((project, index) => (
           <a
             key={project.id}
-            id="projec"
+            className="project-card relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
-
             {/* overlay */}
             <div
               ref={(el) => {
@@ -132,17 +132,22 @@ const Works = () => {
               className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
             />
 
-
-            {/* title */}
+            {/* title + arrow */}
             <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
-              <h2 className="lg:text-[32px] text-[26px] leading-none">
-                {project.name}
-              </h2>
+              <div className="flex flex-col">
+                <h2 className="lg:text-[32px] text-[26px] leading-none">
+                  {project.name}
+                </h2>
+                {/* NEW: Show role on desktop hover */}
+                <p className="hidden md:block text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white/70 mt-1">
+                  {project.role}
+                </p>
+              </div>
               <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
             </div>
 
-            {/* framework */}
-            <div className="flex px-10 text-xs leading-loose uppercase transtion-all duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
+            {/* framework tags */}
+            <div className="flex px-10 text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
               {project.frameworks.map((framework) => (
                 <p
                   key={framework.id}
@@ -153,34 +158,46 @@ const Works = () => {
               ))}
             </div>
 
-            {/* mobile preview image */}
+            {/* NEW: Description visible on mobile, hover on desktop */}
+            <div className="px-10 mt-2 md:mt-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:text-white/80 text-sm max-w-2xl">
+              <p className="md:hidden text-black/70">{project.description}</p>
+              <p className="hidden md:block">{project.description}</p>
+            </div>
 
-            <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
+            {/* NEW: Outcome badge on hover */}
+            <div className="hidden md:block px-10 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="text-xs uppercase tracking-wider text-white/50">
+                Result: {project.outcome}
+              </span>
+            </div>
+
+            {/* mobile preview image — IMPROVED */}
+            <div className="relative flex items-center justify-center px-10 mt-4 md:hidden h-[300px]">
               <img
                 src={project.bgImage}
-                alt={`${project.name}-bg-image`}
+                alt=""
                 className="object-cover w-full h-full rounded-md brightness-50"
               />
               <img
                 src={project.image}
-                alt={`${project.name}-image`}
-                className="absolute bg-center px-14 rounded-xl"
+                alt={`${project.name} preview`}
+                className="absolute object-contain w-3/4 h-3/4 rounded-lg shadow-2xl"
               />
             </div>
           </a>
         ))}
 
-
-        {/* desktop Flaoting preview image */}
+        {/* desktop floating preview — FIXED SIZE */}
         <div
           ref={previewRef}
-          className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0"
+          className="fixed top-0 left-0 z-40 overflow-hidden rounded-lg shadow-2xl pointer-events-none md:block hidden opacity-0"
+          style={{ width: "min(480px, 35vw)", height: "auto" }}
         >
           {currentIndex !== null && (
             <img
               src={projects[currentIndex].image}
-              alt="preview"
-              className="object-cover w-full h-full"
+              alt={`${projects[currentIndex].name} preview`}
+              className="object-cover w-full h-auto"
             />
           )}
         </div>
