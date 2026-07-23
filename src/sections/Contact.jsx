@@ -94,7 +94,7 @@ const Contact = () => {
             {/* NEW: Resume + GitHub links */}
             <div className="social-link flex flex-wrap gap-4 mt-4">
               <a
-                href="/resume.pdf"
+                href="/Simon_Mwangi_CV.pdf"
                 download
                 className="px-6 py-3 text-sm tracking-widest uppercase border border-white/30 rounded-full hover:bg-white hover:text-black transition-all duration-300"
               >
