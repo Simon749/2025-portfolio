@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef,  useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -39,6 +39,28 @@ export function Planet(props) {
       "<"
     );
   }, []);
+
+  useEffect(() => {
+  const canvas = document.querySelector("canvas");
+  if (!canvas) return;
+
+  const handleContextLost = (e) => {
+    e.preventDefault(); // Prevent default behavior
+    console.warn("WebGL context lost, attempting restore");
+  };
+
+  const handleContextRestored = () => {
+    console.log("WebGL context restored");
+  };
+
+  canvas.addEventListener("webglcontextlost", handleContextLost);
+  canvas.addEventListener("webglcontextrestored", handleContextRestored);
+
+  return () => {
+    canvas.removeEventListener("webglcontextlost", handleContextLost);
+    canvas.removeEventListener("webglcontextrestored", handleContextRestored);
+  };
+}, []);
 
   return (
     <group ref={shapeContainer} {...props} dispose={null}>
