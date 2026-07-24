@@ -9,6 +9,7 @@ import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { Analytics } from '@vercel/analytics/react';
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <ContactSummary />
       <Contact />
       <Analytics />
+       <WhatsAppButton />
     </ReactLenis>
   );
 };
