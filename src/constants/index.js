@@ -104,7 +104,7 @@ export const projects = [
       "An invite-only property management platform for Kenyan real estate agencies. Features multi-tenant architecture with strict agency isolation, automated M-Pesa rent collection via Daraja API, utility billing with meter readings, lease agreement generation, and complaint ticketing.",
     role: "Solo Full-Stack Engineer",
     outcome: "End-to-end rent lifecycle from tenant onboarding to automated billing",
-    href: "#",
+    href: "https://agency-seven-livid.vercel.app/",
     image: "/assets/projects/sms.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
