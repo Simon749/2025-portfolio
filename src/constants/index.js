@@ -85,7 +85,7 @@ export const projects = [
       "A production-grade template marketplace with dual-market support. Built guest-only checkout with M-Pesa STK Push and Paystack card payments, idempotent order processing, and secure ZIP delivery via expiring tokens. Handles 12,900+ downloads across 50+ countries.",
     role: "Solo Founder & Full-Stack Engineer",
     outcome: "12,900+ downloads, 50+ countries, zero double-charges",
-    href: "https://devshop-kuqi.vercel.app/",
+    href: "https://devshop-neon-five.vercel.app/",
     image: "/assets/projects/devshop.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
