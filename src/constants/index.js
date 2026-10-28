@@ -80,7 +80,7 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "Zyntric Systems",
+    name: "MWS Systems",
     description:
       "A production-grade template marketplace with dual-market support. Built guest-only checkout with M-Pesa STK Push and Paystack card payments, idempotent order processing, and secure ZIP delivery via expiring tokens. Handles 12,900+ downloads across 50+ countries.",
     role: "Solo Founder & Full-Stack Engineer",
@@ -123,7 +123,7 @@ export const projects = [
       "A multi-role school management system with dedicated dashboards for administrators, teachers, parents, and students. Features attendance tracking, grade management, fee payment records, and real-time parent notifications.",
     role: "Solo Full-Stack Engineer",
     outcome: "Complete academic and administrative workflow digitization",
-    href: "https://sms-k1nf.vercel.app/",
+    href: "https://demo-school-man-system.vercel.app/",
     image: "/assets/projects/school.png",
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
