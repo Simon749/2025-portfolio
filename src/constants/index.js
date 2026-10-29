@@ -124,7 +124,7 @@ export const projects = [
     role: "Solo Full-Stack Engineer",
     outcome: "Complete academic and administrative workflow digitization",
     href: "https://demo-school-man-system.vercel.app/",
-    image: "/assets/projects/school.png",
+    image: "/assets/projects/DEV.PNG",
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
       { id: 1, name: "Next.js" },
