@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://2025-portfolio-rho-five.vercel.app/sitemap.xml
