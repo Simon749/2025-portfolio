@@ -10,10 +10,8 @@ import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { Analytics } from '@vercel/analytics/react';
 import WhatsAppButton from "./components/WhatsAppButton";
-<<<<<<< HEAD
 import PortfolioBot from "./components/PortfolioBot";
-=======
->>>>>>> ab2576df7250f41e4d50f93db8a634a42cf5cd11
+
 
 const App = () => {
   return (
@@ -28,10 +26,7 @@ const App = () => {
       <Contact />
       <Analytics />
        <WhatsAppButton />
-<<<<<<< HEAD
        <PortfolioBot />
-=======
->>>>>>> ab2576df7250f41e4d50f93db8a634a42cf5cd11
     </ReactLenis>
   );
 };
