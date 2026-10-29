@@ -27,6 +27,8 @@ const App = () => {
       <Analytics />
        <WhatsAppButton />
        <PortfolioBot />
+=======
+>>>>>>> ab2576df7250f41e4d50f93db8a634a42cf5cd11
     </ReactLenis>
   );
 };

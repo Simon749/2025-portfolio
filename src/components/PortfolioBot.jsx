@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const USE_API = true; 
+const USE_API = true;
 
 const FAQ = [
   [/stack|tech|skills|what do you (use|know)/i, "Simon's core stack is Next.js 14, React, TypeScript, Node.js and PostgreSQL — with Drizzle or Prisma, Clerk for auth, and Vercel for deployment. He also speaks fluent M-Pesa Daraja, which is rarer than you think."],
@@ -47,20 +47,29 @@ function demoReply(input) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+
 async function getBotReply(input) {
-  if (USE_API) {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: input.slice(0, 300) }),
-    });
-    if (!res.ok) throw new Error("api down");
-    const data = await res.json();
-    return data.reply;
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: input.slice(0, 300) }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    // Show the server's safe, helpful message instead of
+    // replacing every error with "api down".
+    return data.reply || `Orbit is temporarily unavailable (HTTP ${res.status}).`;
   }
-  await sleep(700 + Math.random() * 900);
-  return demoReply(input);
+
+  if (typeof data.reply !== "string" || !data.reply.trim()) {
+    throw new Error("The API returned an empty or invalid reply.");
+  }
+
+  return data.reply;
 }
+
 
 function OrbitAvatar({ size = 44 }) {
   return (
@@ -91,13 +100,13 @@ export default function PortfolioBot() {
   const [particles, setParticles] = useState([]);
   const [shaking, setShaking] = useState(false);
   const [cooldown, setCooldown] = useState(false);
-  
+
   const pokeTimes = useRef([]);
   const pokeCount = useRef(0);
   const idRef = useRef(0);
   const scrollRef = useRef(null);
   const greetedRef = useRef(false);
-  
+
   const nextId = () => ++idRef.current;
 
   useEffect(() => {
@@ -149,13 +158,30 @@ export default function PortfolioBot() {
 
   const send = useCallback(async () => {
     const text = input.trim();
+
+
+
+    if (/^(do a trick|show confetti|dance)[!. ]*$/i.test(text)) {
+      setInput("");
+      setMessages((m) => [
+        ...m,
+        { id: nextId(), role: "user", text },
+      ]);
+      burstConfetti();
+      pushBot(
+        "Tada! Confetti — my greatest trick since I learned to center a div."
+      );
+      return;
+    }
+
+
     if (!text || typing || cooldown) return;
     setInput("");
     setMessages((m) => [...m, { id: nextId(), role: "user", text }]);
     setTyping(true);
     setCooldown(true);
     setTimeout(() => setCooldown(false), 1200);
-    
+
     try {
       const reply = await getBotReply(text);
       if (reply === "__TRICK__") {
@@ -249,11 +275,10 @@ export default function PortfolioBot() {
           <div ref={scrollRef} className="panel-scroll flex-1 space-y-3 overflow-y-auto bg-neutral-50 px-3 py-4">
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[80%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                  m.role === "user"
+                <div className={`max-w-[80%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${m.role === "user"
                     ? "rounded-br-sm bg-orange-500 text-white"
                     : "rounded-bl-sm bg-white text-neutral-800 shadow-sm ring-1 ring-black/5"
-                }`}>
+                  }`}>
                   {m.text}
                 </div>
               </div>
