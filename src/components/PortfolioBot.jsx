@@ -48,11 +48,17 @@ function demoReply(input) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 
-async function getBotReply(input) {
+async function getBotReply(input, history = []) {
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: input.slice(0, 300) }),
+    body: JSON.stringify({
+      message: input.slice(0, 300),
+      history: history.slice(-8).map((item) => ({
+        role: item.role === "bot" ? "model" : "user",
+        text: String(item.text || "").slice(0, 500),
+      })),
+    }),
   });
 
   const data = await res.json().catch(() => ({}));
@@ -183,7 +189,7 @@ export default function PortfolioBot() {
     setTimeout(() => setCooldown(false), 1200);
 
     try {
-      const reply = await getBotReply(text);
+      const reply = await getBotReply(text, messages);
       if (reply === "__TRICK__") {
         burstConfetti();
         pushBot("Tada! Confetti — my greatest trick since I learned to center a div. Want Simon's stack, projects, or availability?");
@@ -195,7 +201,7 @@ export default function PortfolioBot() {
     } finally {
       setTyping(false);
     }
-  }, [input, typing, cooldown, pushBot, burstConfetti]);
+  }, [input, typing, cooldown, messages, pushBot, burstConfetti]);
 
   const openChat = useCallback(() => {
     setOpen(true);
