@@ -21,4 +21,4 @@ export const PROFILE = {
     github: "https://github.com/Simon749",
     linkedin: "https://www.linkedin.com/in/simon-mwangi-6a3aa716b/",
   },
-} as const;
+};

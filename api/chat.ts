@@ -1,5 +1,5 @@
 ﻿import { GoogleGenAI } from "@google/genai";
-import { getOrbitSystemInstruction } from "../src/lib/orbit/index.ts";
+import { getOrbitSystemInstruction } from "../src/lib/orbit/index.js";
 
 type ChatRole = "user" | "model";
 
@@ -16,8 +16,10 @@ type RequestLike = {
 };
 
 type ResponseLike = {
-  status: (code: number) => ResponseLike;
-  json: (body: unknown) => void;
+  status?: (code: number) => ResponseLike;
+  json?: (body: unknown) => void;
+  statusCode?: number;
+  end?: (body?: string) => void;
   setHeader?: (name: string, value: string) => void;
 };
 
@@ -33,15 +35,47 @@ const MAX_HISTORY_TEXT_LENGTH = 900;
 const MAX_REQUESTS_PER_WINDOW = 15;
 const RATE_WINDOW_MS = 60_000;
 
-// This is a best-effort per-instance limit. Serverless instances do not share memory.
-// Use a shared store (for example, Redis/Upstash) if you need globally consistent limits.
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function sendJson(
+  res: ResponseLike,
+  status: number,
+  payload: unknown,
+): void {
+  // Vercel-style response
+  if (typeof res.status === "function" && typeof res.json === "function") {
+    const vercelRes = res.status(status);
+
+    if (vercelRes && typeof vercelRes.json === "function") {
+      vercelRes.json(payload);
+      return;
+    }
+  }
+
+  // Native Node.js response (used by local Vite middleware)
+  res.statusCode = status;
+  res.setHeader?.("Content-Type", "application/json; charset=utf-8");
+  res.setHeader?.("Cache-Control", "no-store");
+  res.end?.(JSON.stringify(payload));
+}
+
+function sendError(
+  res: ResponseLike,
+  status: number,
+  message: string,
+): void {
+  sendJson(res, status, { error: message, reply: message });
+}
 
 function getClientKey(req: RequestLike): string {
   const forwarded = req.headers?.["x-forwarded-for"];
   const forwardedValue = Array.isArray(forwarded) ? forwarded[0] : forwarded;
-  const ip = forwardedValue?.split(",")[0]?.trim() || req.socket?.remoteAddress;
-  return ip || "unknown";
+
+  return (
+    forwardedValue?.split(",")[0]?.trim() ||
+    req.socket?.remoteAddress ||
+    "unknown"
+  );
 }
 
 function isRateLimited(key: string): boolean {
@@ -49,7 +83,10 @@ function isRateLimited(key: string): boolean {
   const current = rateBuckets.get(key);
 
   if (!current || current.resetAt <= now) {
-    rateBuckets.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    rateBuckets.set(key, {
+      count: 1,
+      resetAt: now + RATE_WINDOW_MS,
+    });
     return false;
   }
 
@@ -60,8 +97,11 @@ function isRateLimited(key: string): boolean {
 function readBody(body: unknown): Record<string, unknown> {
   if (typeof body === "string") {
     try {
-      const parsed = JSON.parse(body);
-      return parsed && typeof parsed === "object" ? parsed : {};
+      const parsed: unknown = JSON.parse(body);
+
+      return parsed && typeof parsed === "object"
+        ? (parsed as Record<string, unknown>)
+        : {};
     } catch {
       return {};
     }
@@ -80,11 +120,12 @@ function cleanHistory(value: unknown): ChatTurn[] {
     .map((item: IncomingTurn): ChatTurn | null => {
       if (!item || typeof item !== "object") return null;
 
-      const rawRole = item.role;
       const role: ChatRole | null =
-        rawRole === "user"
+        item.role === "user"
           ? "user"
-          : rawRole === "model" || rawRole === "bot" || rawRole === "assistant"
+          : item.role === "model" ||
+              item.role === "bot" ||
+              item.role === "assistant"
             ? "model"
             : null;
 
@@ -96,21 +137,25 @@ function cleanHistory(value: unknown): ChatTurn[] {
             : "";
 
       const text = rawText.trim().slice(0, MAX_HISTORY_TEXT_LENGTH);
-      if (!role || !text) return null;
 
-      return { role, parts: [{ text }] };
+      return role && text ? { role, parts: [{ text }] } : null;
     })
     .filter((turn): turn is ChatTurn => turn !== null);
 }
 
-function sendError(res: ResponseLike, status: number, message: string) {
-  return res.status(status).json({ error: message, reply: message });
-}
-
-export default async function handler(req: RequestLike, res: ResponseLike) {
+export default async function handler(
+  req: RequestLike,
+  res: ResponseLike,
+): Promise<void> {
   if (req.method !== "POST") {
     res.setHeader?.("Allow", "POST");
-    return sendError(res, 405, "This endpoint only accepts POST requests.");
+
+    sendError(
+      res,
+      405,
+      "This endpoint only accepts POST requests.",
+    );
+    return;
   }
 
   const body = readBody(req.body);
@@ -118,45 +163,50 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
     typeof body.message === "string" ? body.message.trim() : "";
 
   if (!message) {
-    return sendError(res, 400, "Please enter a message.");
+    sendError(res, 400, "Please enter a message.");
+    return;
   }
 
   if (message.length > MAX_MESSAGE_LENGTH) {
-    return sendError(
+    sendError(
       res,
       400,
       `Please keep your message under ${MAX_MESSAGE_LENGTH} characters.`,
     );
+    return;
   }
 
   if (isRateLimited(getClientKey(req))) {
-    return sendError(
+    sendError(
       res,
       429,
       "Orbit is receiving too many requests. Please try again in a minute.",
     );
+    return;
+  }
+
+  if (/^\s*(do a trick|show confetti|dance)\s*[!.?]*\s*$/i.test(message)) {
+    sendJson(res, 200, { reply: "__TRICK__" });
+    return;
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
+
   if (!apiKey) {
     console.error("[Orbit] GEMINI_API_KEY is not configured.");
-    return sendError(
+
+    sendError(
       res,
       503,
       "Orbit is not configured yet. Please try again later.",
     );
-  }
-
-  // Keep the playful confetti action deterministic and independent of the AI.
-  if (/^\s*(do a trick|show confetti|dance)\s*[!.?]*\s*$/i.test(message)) {
-    return res.status(200).json({ reply: "__TRICK__" });
+    return;
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
     const history = cleanHistory(body.history);
 
-    // Avoid sending a malformed conversation that begins with a model turn.
     while (history.length > 0 && history[0].role !== "user") {
       history.shift();
     }
@@ -183,14 +233,16 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
 
     if (!reply) {
       console.error("[Orbit] Gemini returned an empty response.");
-      return sendError(
+
+      sendError(
         res,
         502,
         "I couldn't put together a useful answer just now. Please try again.",
       );
+      return;
     }
 
-    return res.status(200).json({ reply });
+    sendJson(res, 200, { reply });
   } catch (error) {
     const err = error as {
       name?: string;
@@ -198,13 +250,37 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
       status?: number;
     };
 
+    const upstreamStatus = Number(err?.status);
+
     console.error("[Orbit] Chat request failed:", {
       name: err?.name,
       message: err?.message,
       status: err?.status,
     });
 
-    return sendError(
+    if (upstreamStatus === 503) {
+      res.setHeader?.("Retry-After", "5");
+
+      sendError(
+        res,
+        503,
+        "Orbit's AI service is temporarily busy. Please try again in a few seconds.",
+      );
+      return;
+    }
+
+    if (upstreamStatus === 429) {
+      res.setHeader?.("Retry-After", "10");
+
+      sendError(
+        res,
+        429,
+        "Orbit is receiving too many requests right now. Please try again shortly.",
+      );
+      return;
+    }
+
+    sendError(
       res,
       500,
       "Orbit hit a temporary technical problem. Please try again shortly.",
